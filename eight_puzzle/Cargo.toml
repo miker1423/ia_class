@@ -1,5 +1,5 @@
 [package]
-name = "bfs_rust"
+name = "eight_puzzle"
 version = "0.1.0"
 authors = ["Miguel Pérez García <miguelpg_95@hotmail.com>"]
 edition = "2018"
