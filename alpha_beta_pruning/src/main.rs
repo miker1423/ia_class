@@ -44,27 +44,27 @@ impl Game {
     }
 
     fn min_player(children:Vec<TreeNode>, alpha:i32, beta:i32) -> i32 {
-        let mut temp_value = 0;
+        let mut value = 0;
         for child in children {
-            temp_value = min(i32::max_value(), Game::ab_pruning(child, alpha, beta, true));
-            let beta = min(beta, temp_value);
+            value = min(i32::max_value(), Game::ab_pruning(child, alpha, beta, true));
+            let beta = min(beta, value);
             if alpha >= beta {
                 break;
             }
         }
-        temp_value
+        return value;
     }
 
     fn max_player(children:Vec<TreeNode>, alpha:i32, beta:i32) -> i32 {
-        let mut temp_value = 0;
+        let mut value = 0;
         for child in children {
-            temp_value = max(i32::min_value(), Game::ab_pruning(child, alpha, beta, false));
-            let alpha = max(alpha, temp_value);
+            value = max(i32::min_value(), Game::ab_pruning(child, alpha, beta, false));
+            let alpha = max(alpha, value);
             if alpha >= beta {
                 break;
             }
         }
-        temp_value
+        return value;
     }
 }
 
