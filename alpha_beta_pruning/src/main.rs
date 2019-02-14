@@ -6,6 +6,8 @@ struct TreeNode {
     value: Option<i32>
 }
 
+struct Game;
+
 impl TreeNode {
     fn new_with_value(value: i32) -> TreeNode {
         TreeNode { childs: Option::None, value: Option::Some(value) }
@@ -23,14 +25,13 @@ impl TreeNode {
     }
 }
 
-struct Game;
-
 impl Game {
     fn alpha_beta_pruning(root:TreeNode) -> i32 {
         Game::ab_pruning(root, i32::min_value(), i32::max_value(), true)
     }
 
     fn ab_pruning(root:TreeNode, alpha:i32, beta:i32, is_maximizing_player:bool) -> i32 {
+        dbg!(&root);
         if root.is_leaf() {
             return root.value.unwrap_or(0);
         }
@@ -49,6 +50,7 @@ impl Game {
             value = min(i32::max_value(), Game::ab_pruning(child, alpha, beta, true));
             let beta = min(beta, value);
             if alpha >= beta {
+                dbg!("Pruned");
                 break;
             }
         }
@@ -61,6 +63,7 @@ impl Game {
             value = max(i32::min_value(), Game::ab_pruning(child, alpha, beta, false));
             let alpha = max(alpha, value);
             if alpha >= beta {
+                dbg!("Pruned");
                 break;
             }
         }
@@ -72,19 +75,19 @@ impl Game {
 fn main() {
     // CASE 1
     let tree_a = get_tree_a();
-    println!("Tree: {:?}", &tree_a);
+    println!("For tree: {:?}", &tree_a);
     let result = Game::alpha_beta_pruning(tree_a);
     println!("Result -> {}", result);
 
     //CASE 2
     let tree_b = get_tree_b();
-    println!("Tree: {:?}", &tree_b);
+    println!("For tree: {:?}", &tree_b);
     let result = Game::alpha_beta_pruning(tree_b);
     println!("Result -> {}", result);
 
     //EXTRA TREE
     let extra_tree = get_extra_tree();
-    println!("Tree: {:?}", &extra_tree);
+    println!("For tree: {:?}", &extra_tree);
     let result = Game::alpha_beta_pruning(extra_tree);
     println!("Result -> {}", result);
 }
